@@ -1,17 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import TimerButton from './TimerButton';
 import TimerForm from './TimerForm';
+import { newTimerType } from '../utils/TimerUtils';
 
 type ToggleableTimerFormType = {
-  isOpen: boolean;
+  onFormSubmit: (timer: newTimerType) => void;
 };
 
-const ToggleableTimerForm = ({ isOpen }: ToggleableTimerFormType) => {
+const ToggleableTimerForm = ({ onFormSubmit }: ToggleableTimerFormType) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleFormOpen = () => setIsOpen(true);
+  const handleFormClose = () => setIsOpen(false);
+  const handleFormSubmit = (timer: newTimerType) => {
+    console.log(timer);
+    console.log(onFormSubmit);
+    onFormSubmit(timer);
+    handleFormClose();
+  };
+
   return (
     <View style={[styles.container, !isOpen && styles.buttonPadding]}>
-      {isOpen ? <TimerForm /> : <TimerButton title="+" color="black" />}
+      {isOpen ? (
+        <TimerForm
+          onFormSubmit={handleFormSubmit}
+          onFormClose={handleFormClose}
+        />
+      ) : (
+        <TimerButton title="+" color="black" onPress={handleFormOpen} />
+      )}
     </View>
   );
 };

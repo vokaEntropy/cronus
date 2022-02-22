@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { v4 as uuidv4 } from 'uuid';
 
 import EditableTimer from './components/EditableTimer';
 import ToggleableTimerForm from './components/ToggleableTimerForm';
 import colors from './constant/colors';
+import { newTimer, newTimerType } from './utils/TimerUtils';
 
 const App = () => {
+  const [timers, setTimers] = useState([
+    {
+      title: 'Mow the lawn',
+      project: 'House Chores',
+      id: uuidv4(),
+      elapsed: 5456099,
+      isRunning: true,
+    },
+    {
+      title: 'Bake squash',
+      project: 'Kitchen Chores',
+      id: uuidv4(),
+      elapsed: 1273998,
+      isRunning: false,
+    },
+  ]);
+
+  const handleCreateFormSubmit = (timer: newTimerType) => {
+    setTimers([newTimer(timer), ...timers]);
+  };
+
   return (
     <View style={styles.appContainer}>
       <StatusBar style="light" />
@@ -14,22 +37,19 @@ const App = () => {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>Timers</Text>
       </View>
-      
+
       <ScrollView style={styles.timerList}>
-        <ToggleableTimerForm isOpen={false} />
-        <EditableTimer
-          id="1"
-          title="Mow the lawn"
-          project="House Chores"
-          elapsed="8986300"
-        />
-        <EditableTimer
-          id="2"
-          title="Bake squash"
-          project="Kitchen Chores"
-          elapsed="3890985"
-          editFormOpen
-        />
+        <ToggleableTimerForm onFormSubmit={handleCreateFormSubmit} />
+        {timers.map(({ title, project, id, elapsed, isRunning }) => (
+          <EditableTimer
+            key={id}
+            id={id}
+            title={title}
+            project={project}
+            elapsed={elapsed}
+            isRunning={isRunning}
+          />
+        ))}
       </ScrollView>
     </View>
   );

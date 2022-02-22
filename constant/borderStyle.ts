@@ -1,6 +1,6 @@
 const borderStyle = {
   borderColor: 'transparent',
-  borderWidth: 2,
+  borderWidth: 0,
   borderRadius: 13,
 };
 

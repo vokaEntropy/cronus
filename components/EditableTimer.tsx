@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import TimerForm from './TimerForm';
 import Timer from './Timer';
@@ -9,7 +9,6 @@ type EditableTimerType = {
   project: string;
   elapsed: number;
   isRunning?: boolean;
-  editFormOpen?: boolean;
 };
 
 // add id and isRunning for Timer
@@ -20,10 +19,11 @@ const EditableTimer = ({
   project,
   elapsed,
   isRunning,
-  editFormOpen,
 }: EditableTimerType) => {
+  const [editFormOpen, setEditFormOpen] = useState(false);
+
   if (editFormOpen) {
-    return <TimerForm id={id} title={title} project={project} />;
+    return <TimerForm id={id} defaultTitle={title} defaultProject={project} />;
   }
   return <Timer title={title} project={project} elapsed={elapsed} />;
 };

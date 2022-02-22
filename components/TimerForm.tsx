@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, Text, TextInput } from 'react-native';
 
 import TimerButton from './TimerButton';
@@ -7,12 +7,30 @@ import colors from '../constant/colors';
 
 type TimerFormType = {
   id?: string;
-  title?: string;
-  project?: string;
+  onFormClose: any;
+  onFormSubmit: any;
+  defaultTitle?: string;
+  defaultProject?: string;
 };
 
-const TimerForm = ({ id, title, project }: TimerFormType) => {
+const TimerForm = ({
+  id,
+  onFormClose,
+  onFormSubmit,
+  defaultTitle,
+  defaultProject,
+}: TimerFormType) => {
   const submitText = Boolean(id) ? '🔃 Update' : '➕ Create';
+
+  const [title, setTitle] = useState(id ? defaultTitle : '');
+  const [project, setProject] = useState(id ? defaultProject : '');
+
+  const handleSubmit = () =>
+    onFormSubmit({
+      id,
+      title,
+      project,
+    });
 
   return (
     <View style={styles.formContainer}>
@@ -20,7 +38,9 @@ const TimerForm = ({ id, title, project }: TimerFormType) => {
         <Text style={styles.textInputTitle}>Title</Text>
         <View style={styles.textInputContainer}>
           <TextInput
+            value={title}
             style={styles.textInput}
+            onChangeText={setTitle}
             underlineColorAndroid="transparent"
             defaultValue={title}
           />
@@ -28,10 +48,12 @@ const TimerForm = ({ id, title, project }: TimerFormType) => {
       </View>
 
       <View style={styles.attributeContainer}>
-        <Text style={styles.textInputTitle}>Project</Text>
+        <Text style={styles.textInputTitle}>Project:</Text>
         <View style={styles.textInputContainer}>
           <TextInput
+            value={project}
             style={styles.textInput}
+            onChangeText={setProject}
             underlineColorAndroid="transparent"
             defaultValue={project}
           />
@@ -39,8 +61,18 @@ const TimerForm = ({ id, title, project }: TimerFormType) => {
       </View>
 
       <View style={styles.buttonGroup}>
-        <TimerButton small color="#21BA45" title={submitText} />
-        <TimerButton small color="#DB2828" title="❌ Cancel" />
+        <TimerButton
+          small
+          color="#21BA45"
+          title={submitText}
+          onPress={handleSubmit}
+        />
+        <TimerButton
+          small
+          color="#DB2828"
+          title="❌ Cancel"
+          onPress={onFormClose}
+        />
       </View>
     </View>
   );

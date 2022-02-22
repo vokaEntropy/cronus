@@ -24,7 +24,7 @@ const pad = (numberString: string, size: number) => {
   return padded;
 };
 
-type newTimerType = {
+export type newTimerType = {
   title?: string;
   project?: string;
 };
