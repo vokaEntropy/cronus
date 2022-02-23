@@ -25,6 +25,7 @@ const pad = (numberString: string, size: number) => {
 };
 
 export type newTimerType = {
+  id?: string | null;
   title?: string;
   project?: string;
 };

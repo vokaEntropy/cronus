@@ -15,8 +15,6 @@ const ToggleableTimerForm = ({ onFormSubmit }: ToggleableTimerFormType) => {
   const handleFormOpen = () => setIsOpen(true);
   const handleFormClose = () => setIsOpen(false);
   const handleFormSubmit = (timer: newTimerType) => {
-    console.log(timer);
-    console.log(onFormSubmit);
     onFormSubmit(timer);
     handleFormClose();
   };
@@ -29,7 +27,7 @@ const ToggleableTimerForm = ({ onFormSubmit }: ToggleableTimerFormType) => {
           onFormClose={handleFormClose}
         />
       ) : (
-        <TimerButton title="+" color="black" onPress={handleFormOpen} />
+        <TimerButton title="Add" emoji="⏱️" onPress={handleFormOpen} />
       )}
     </View>
   );

@@ -1,19 +1,45 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, GestureResponderEvent } from 'react-native';
 
 import { msToHuman } from '../utils/TimerUtils';
 import TimerButton from './TimerButton';
-import borderStyle from '../constant/borderStyle';
-import colors from '../constant/colors';
+import { colors, separatorStyle } from '../constants';
 
 type TimerType = {
+  id: string;
   title: string;
   project: string;
   elapsed: number;
+  isRunning: boolean;
+  onEditPress: (event: GestureResponderEvent) => void;
+  onRemovePress: (id: string) => void;
+  onStartPress: (id: string) => void;
+  onStopPress: (id: string) => void;
 };
 
-const Timer = ({ title, project, elapsed }: TimerType) => {
+const Timer = ({
+  id,
+  title,
+  project,
+  elapsed,
+  isRunning,
+  onEditPress,
+  onRemovePress,
+  onStartPress,
+  onStopPress,
+}: TimerType) => {
   const elapsedString = msToHuman(elapsed);
+
+  const handleRemovePress = () => onRemovePress(id);
+  const handleStartPress = () => onStartPress(id);
+  const handleStopPress = () => onStopPress(id);
+
+  const renderActionButton = () => {
+    if (isRunning) {
+      return <TimerButton title="Stop" emoji="🛑" onPress={handleStopPress} />;
+    }
+    return <TimerButton title="Start" emoji="▶️" onPress={handleStartPress} />;
+  };
 
   return (
     <View style={styles.timerContainer}>
@@ -23,17 +49,17 @@ const Timer = ({ title, project, elapsed }: TimerType) => {
         ⏱️ {elapsedString}
       </Text>
       <View style={styles.buttonGroup}>
-        <TimerButton color="blue" small title="🖊️ Edit" />
-        <TimerButton color="blue" small title="🗑️ Remove" />
+        <TimerButton title="Edit" emoji="🖊️" onPress={onEditPress} />
+        <TimerButton title="Remove" emoji="🗑️" onPress={handleRemovePress} />
       </View>
-      <TimerButton color="#21BA45" title="▶️ Start" />
+      {renderActionButton()}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   timerContainer: {
-    ...borderStyle,
+    ...separatorStyle,
     padding: 15,
     margin: 15,
     marginBottom: 0,

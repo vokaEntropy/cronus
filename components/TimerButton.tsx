@@ -1,27 +1,23 @@
 import React from 'react';
 import {
-  ColorValue,
   GestureResponderEvent,
   StyleSheet,
   Text,
   TouchableOpacity,
 } from 'react-native';
 
-import borderStyle from '../constant/borderStyle';
-import colors from '../constant/colors';
+import { borderStyle, colors, sizes } from '../constants';
 
 type TimerButtonType = {
-  color: ColorValue | undefined;
   title: string;
-  small?: boolean;
-  onPress?: ((event: GestureResponderEvent) => void) | undefined;
+  emoji: string;
+  onPress: (event: GestureResponderEvent) => void;
 };
 
-const TimerButton = ({ color, title, small, onPress }: TimerButtonType) => (
+const TimerButton = ({ title, emoji, onPress }: TimerButtonType) => (
   <TouchableOpacity style={[styles.button]} onPress={onPress}>
-    <Text style={[styles.buttonText, small ? styles.small : styles.large]}>
-      {title}
-    </Text>
+    <Text>{emoji}</Text>
+    <Text style={[styles.buttonText]}>{title}</Text>
   </TouchableOpacity>
 );
 
@@ -29,19 +25,16 @@ const styles = StyleSheet.create({
   button: {
     ...borderStyle,
     backgroundColor: colors.lightDark,
+    minHeight: sizes.height,
     marginTop: 10,
-    minWidth: 100,
-    minHeight: 30,
-  },
-  small: {
-    fontSize: 14,
-    padding: 5,
-  },
-  large: {
-    fontSize: 16,
-    padding: 10,
+    paddingLeft: 14,
+    paddingRight: 14,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
+    marginLeft: 6,
     color: colors.white,
     textAlign: 'center',
     fontWeight: 'bold',

@@ -4,4 +4,4 @@ const borderStyle = {
   borderRadius: 13,
 };
 
-export default borderStyle;
+export default Object.freeze(borderStyle);

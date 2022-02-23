@@ -5,4 +5,4 @@ const colors = {
   white: '#ffffff',
 };
 
-export default colors;
+export default Object.freeze(colors);
