@@ -14,14 +14,26 @@ export const msToHuman = (ms: number) => {
   return humanized;
 };
 
-const pad = (numberString: string, size: number) => {
-  let padded = numberString;
-  
+const pad = (numberString: string | number, size: number) => {
+  let padded = String(numberString);
+
   while (padded.length < size) {
     padded = `0${padded}`;
   }
 
   return padded;
+};
+
+export const getCurrentTime = () => {
+  const currentDate = new Date();
+
+  const currentTime = [
+    pad(currentDate.getHours(), 2),
+    pad(currentDate.getMinutes(), 2),
+    pad(currentDate.getSeconds(), 2),
+  ].join(':');
+
+  return currentTime;
 };
 
 export type newTimerType = {
