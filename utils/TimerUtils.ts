@@ -36,6 +36,12 @@ export const getCurrentTime = () => {
   return currentTime;
 };
 
+export const getCurrentDate = () => {
+  const currentDate = new Date();
+
+  return ` ${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+};
+
 export type newTimerType = {
   id?: string | null;
   title?: string;

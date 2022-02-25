@@ -2,19 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { colors } from '../constants';
-import { getCurrentTime } from '../utils/TimerUtils';
+import { getCurrentTime, getCurrentDate } from '../utils/TimerUtils';
 
 const ClockPage = () => {
   const [time, setTime] = useState(getCurrentTime());
+  const [date, setDate] = useState(getCurrentDate());
 
   useEffect(() => {
-    setInterval(() => setTime(getCurrentTime), 1000);
+    setInterval(() => {
+      setTime(getCurrentTime);
+      setDate(getCurrentDate);
+    }, 1000);
   });
 
   return (
     <View style={styles.clockPageContainer}>
       <Text style={styles.icon}>🕘</Text>
       <Text style={styles.text}>{time}</Text>
+      <Text style={[styles.text, styles.small]}>{date}</Text>
     </View>
   );
 };
@@ -35,6 +40,9 @@ const styles = StyleSheet.create({
     fontSize: 44,
     color: colors.white,
     textAlign: 'center',
+  },
+  small: {
+    fontSize: 30,
   },
 });
 
