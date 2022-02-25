@@ -8,8 +8,7 @@ import {
 } from '@react-navigation/bottom-tabs';
 
 import { colors } from './constants';
-import TimersPage from './pages/TimersPage';
-import ClockPage from './pages/ClockPage';
+import { ClockPage, TimersPage, SettingsPage } from './pages';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -29,6 +28,11 @@ const App = () => {
             name="Timers"
             component={TimersPage}
             options={{ tabBarIcon: () => <Text style={styles.text}>⏱️</Text> }}
+          />
+          <Screen
+            name="Settings"
+            component={SettingsPage}
+            options={{ tabBarIcon: () => <Text style={styles.text}>⚙️</Text> }}
           />
         </Navigator>
       </NavigationContainer>
