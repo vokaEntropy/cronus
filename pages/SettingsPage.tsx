@@ -1,17 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Switch, Text, StyleSheet } from 'react-native';
 
 import { colors } from '../constants';
+import { useStore } from '../components/StoreContext';
 
-type SettingsPageProps = {
-  isTimerOption: boolean;
-  toggleIsTimerOption: () => void;
-};
+const SettingsPage = () => {
+  const { store, dispatch } = useStore();
+  const { settings } = store;
 
-const SettingsPage = ({
-  isTimerOption,
-  toggleIsTimerOption,
-}: SettingsPageProps) => {
+  console.log(store);
+
   return (
     <View style={styles.settingsPageContainer}>
       <View style={styles.optionContainer}>
@@ -20,8 +18,8 @@ const SettingsPage = ({
         </Text>
 
         <Switch
-          value={isTimerOption}
-          onChange={toggleIsTimerOption}
+          value={settings.timersIsImmediatelyStart}
+          onChange={() => dispatch({ type: 'toggleTimersIsImmediatelyStart' })}
           {...SwitchStyle}
         />
       </View>

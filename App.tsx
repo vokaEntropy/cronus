@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,17 +9,12 @@ import {
 
 import { colors } from './constants';
 import { ClockPage, TimersPage, SettingsPage } from './pages';
+import { StoreProvider } from './components/StoreContext';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
-const App = () => {
-  const [isTimerOption, setIsTimerOption] = useState(false);
-
-  const toggleIsTimerOption = () => {
-    setIsTimerOption(!isTimerOption);
-  };
-
-  return (
+const App = () => (
+  <StoreProvider>
     <View style={styles.appContainer}>
       <StatusBar style="light" />
 
@@ -27,29 +22,30 @@ const App = () => {
         <Navigator screenOptions={screenStyles as BottomTabNavigationOptions}>
           <Screen
             name="Clock"
-            children={() => <ClockPage />}
-            options={{ tabBarIcon: () => <Text style={styles.text}>🕘</Text> }}
+            component={ClockPage}
+            options={{
+              tabBarIcon: () => <Text style={styles.text}>🕘</Text>,
+            }}
           />
           <Screen
             name="Timers"
-            children={() => <TimersPage isTimerOption={isTimerOption} />}
-            options={{ tabBarIcon: () => <Text style={styles.text}>⏱️</Text> }}
+            component={TimersPage}
+            options={{
+              tabBarIcon: () => <Text style={styles.text}>⏱️</Text>,
+            }}
           />
           <Screen
             name="Settings"
-            children={() => (
-              <SettingsPage
-                isTimerOption={isTimerOption}
-                toggleIsTimerOption={toggleIsTimerOption}
-              />
-            )}
-            options={{ tabBarIcon: () => <Text style={styles.text}>⚙️</Text> }}
+            component={SettingsPage}
+            options={{
+              tabBarIcon: () => <Text style={styles.text}>⚙️</Text>,
+            }}
           />
         </Navigator>
       </NavigationContainer>
     </View>
-  );
-};
+  </StoreProvider>
+);
 
 const styles = StyleSheet.create({
   appContainer: {
