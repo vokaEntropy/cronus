@@ -39,7 +39,9 @@ export const getCurrentTime = () => {
 export const getCurrentDate = () => {
   const currentDate = new Date();
 
-  return ` ${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+  return ` ${currentDate.getDate()}/${
+    currentDate.getMonth() + 1
+  }/${currentDate.getFullYear()}`;
 };
 
 export type newTimerType = {
@@ -48,13 +50,13 @@ export type newTimerType = {
   project?: string;
 };
 
-export const newTimer = (attrs: newTimerType = {}) => {
+export const newTimer = (attrs: newTimerType = {}, isRunning = false) => {
   const timer = {
     title: attrs.title || 'Timer',
     project: attrs.project || 'Project',
     id: uuidv4(),
     elapsed: 0,
-    isRunning: false,
+    isRunning,
   };
 
   return timer;

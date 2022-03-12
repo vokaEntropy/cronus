@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,6 +13,12 @@ import { ClockPage, TimersPage, SettingsPage } from './pages';
 const { Navigator, Screen } = createBottomTabNavigator();
 
 const App = () => {
+  const [isTimerOption, setIsTimerOption] = useState(false);
+
+  const toggleIsTimerOption = () => {
+    setIsTimerOption(!isTimerOption);
+  };
+
   return (
     <View style={styles.appContainer}>
       <StatusBar style="light" />
@@ -21,17 +27,22 @@ const App = () => {
         <Navigator screenOptions={screenStyles as BottomTabNavigationOptions}>
           <Screen
             name="Clock"
-            component={ClockPage}
+            children={() => <ClockPage />}
             options={{ tabBarIcon: () => <Text style={styles.text}>🕘</Text> }}
           />
           <Screen
             name="Timers"
-            component={TimersPage}
+            children={() => <TimersPage isTimerOption={isTimerOption} />}
             options={{ tabBarIcon: () => <Text style={styles.text}>⏱️</Text> }}
           />
           <Screen
             name="Settings"
-            component={SettingsPage}
+            children={() => (
+              <SettingsPage
+                isTimerOption={isTimerOption}
+                toggleIsTimerOption={toggleIsTimerOption}
+              />
+            )}
             options={{ tabBarIcon: () => <Text style={styles.text}>⚙️</Text> }}
           />
         </Navigator>
@@ -52,7 +63,7 @@ const styles = StyleSheet.create({
 
 const screenStyles = {
   tabBarInactiveBackgroundColor: colors.lightDark,
-  tabBarActiveBackgroundColor: colors.lightDark,
+  tabBarActiveBackgroundColor: colors.dark,
   tabBarActiveTintColor: colors.white,
   tabBarInactiveTintColor: colors.whiteOpacity,
   headerTitleAlign: 'center',

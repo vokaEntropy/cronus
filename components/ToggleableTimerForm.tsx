@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import TimerButton from './TimerButton';
 import TimerForm from './TimerForm';
-import { newTimerType } from '../utils/TimerUtils';
+import { newTimerType } from '../helpers/TimerUtils';
 
 type ToggleableTimerFormType = {
   onFormSubmit: (timer: newTimerType) => void;

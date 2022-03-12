@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import EditableTimer from '../components/EditableTimer';
 import ToggleableTimerForm from '../components/ToggleableTimerForm';
 import { colors } from '../constants';
-import { newTimer, newTimerType } from '../utils/TimerUtils';
+import { newTimer, newTimerType } from '../helpers/TimerUtils';
 
 type TimerType = {
   title: string;
@@ -20,7 +20,11 @@ type TimerType = {
   isRunning: boolean;
 };
 
-const TimersPage = () => {
+type TimersPageProps = {
+  isTimerOption: boolean;
+};
+
+const TimersPage = ({ isTimerOption }: TimersPageProps) => {
   const [timers, setTimers] = useState<TimerType[]>([
     {
       title: 'Bake squash',
@@ -54,7 +58,7 @@ const TimersPage = () => {
   }, []);
 
   const handleCreateFormSubmit = (timer: newTimerType) => {
-    setTimers([newTimer(timer), ...timers]);
+    setTimers([newTimer(timer, isTimerOption), ...timers]);
   };
 
   const handleFormSubmit = (attrs: newTimerType) => {

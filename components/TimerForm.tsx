@@ -3,7 +3,7 @@ import { StyleSheet, View, GestureResponderEvent } from 'react-native';
 
 import TimerButton from './TimerButton';
 import TimerInput from './TimerInput';
-import { newTimerType } from '../utils/TimerUtils';
+import { newTimerType } from '../helpers/TimerUtils';
 import { separatorStyle } from '../constants';
 
 type TimerFormType = {

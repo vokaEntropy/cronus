@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import TimerForm from './TimerForm';
 import Timer from './Timer';
-import { newTimerType } from '../utils/TimerUtils';
+import { newTimerType } from '../helpers/TimerUtils';
 
 type EditableTimerType = {
   id: string;

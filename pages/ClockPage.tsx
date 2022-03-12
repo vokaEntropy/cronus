@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { colors } from '../constants';
-import { getCurrentTime, getCurrentDate } from '../utils/TimerUtils';
+import { getCurrentTime, getCurrentDate } from '../helpers/TimerUtils';
 
 const ClockPage = () => {
   const [time, setTime] = useState(getCurrentTime());

@@ -3,13 +3,15 @@ import { View, Switch, Text, StyleSheet } from 'react-native';
 
 import { colors } from '../constants';
 
-const SettingsPage = () => {
-  const [isTimerOption, setIsTimerOption] = useState(true);
+type SettingsPageProps = {
+  isTimerOption: boolean;
+  toggleIsTimerOption: () => void;
+};
 
-  const handleIsTimerOptionSwitch = () => {
-    setIsTimerOption(!isTimerOption);
-  };
-
+const SettingsPage = ({
+  isTimerOption,
+  toggleIsTimerOption,
+}: SettingsPageProps) => {
   return (
     <View style={styles.settingsPageContainer}>
       <View style={styles.optionContainer}>
@@ -19,7 +21,7 @@ const SettingsPage = () => {
 
         <Switch
           value={isTimerOption}
-          onChange={handleIsTimerOptionSwitch}
+          onChange={toggleIsTimerOption}
           {...SwitchStyle}
         />
       </View>

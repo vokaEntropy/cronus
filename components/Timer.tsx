@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, GestureResponderEvent } from 'react-native';
 
-import { msToHuman } from '../utils/TimerUtils';
+import { msToHuman } from '../helpers/TimerUtils';
 import TimerButton from './TimerButton';
 import { colors, separatorStyle } from '../constants';
 
